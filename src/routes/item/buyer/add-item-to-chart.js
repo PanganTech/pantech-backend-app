@@ -1,10 +1,9 @@
-const connection = require('../../db');
+const connection = require('../../../db');
 const router = require('express').Router()
-const { logError } = require('../../utils/logger')
+const { logError } = require('../../../utils/logger')
 const { repositories } = require('data-access-utility');
 const { helpers, errors, CommonError } = require('backend-utility');
 const { Serializer } = require('jsonapi-serializer');
-const { getUsernameType } = require('../../utils/functions');
 
 const { responses } = helpers;
 
@@ -46,28 +45,35 @@ const chartController = async(req, res) => {
 
     try {
         const Charts = new repositories.Chart(connection);
-        const Items = new repositories.Items(connection);
+        const Items = new repositories.Item(connection);
 
         const chart = await Charts.getChart(user_id, false);
         if (!chart) throw new CommonError(UserNotFoundException);
         const item = await Items.getItemById(itemId, false);
         const harga = await Items.getPrice(item)
+        let itemInChart = await Charts.getItemInChart(chart, false)
 
-        let total = harga * jumlah;
-        let data = await chart.getItemInChart(chart)
+        const objWithIdIndex = itemInChart.findIndex((obj) => obj.item_id === parseInt(itemId));
 
-        const newChart = {
-            itemId,
-            jumlah,
-            total,
+        if (objWithIdIndex > -1) {
+            itemInChart.splice(objWithIdIndex, 1);
         }
-        data.push(newChart);
+        
+        let total = harga * jumlah;
+        console.log(harga)
+        
+        // console.log(data)
+        newChart = {
+            'item_id': parseInt(itemId),
+            'jumlah': parseInt(jumlah),
+            'total': total
+        }
+        itemInChart.push(newChart);
+        console.log(itemInChart)
 
-        await Charts.updateChartAttribute(chart,{
-            chart: data
-        })
-
-        const chartData = await serialize(chart);
+        const a = await Charts.updateChartAttribute(chart,itemInChart)
+         
+        const chartData = await serialize(a);
 
     const customResponse = {
       chart: chartData.data,
@@ -81,6 +87,6 @@ const chartController = async(req, res) => {
   res.send(response);
 }
 
-router.get('/chart', validator, infoController)
+router.put('/chart', validator, chartController)
 
 module.exports = router

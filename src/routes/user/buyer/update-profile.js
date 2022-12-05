@@ -1,6 +1,6 @@
-const connection = require('../../db');
+const connection = require('../../../db');
 const router = require('express').Router();
-const { logError } = require('../../utils/logger');
+const { logError } = require('../../../utils/logger');
 const { repositories } = require('data-access-utility');
 const { errors, helpers, configs, CommonError } = require('backend-utility');
 const { Serializer } = require('jsonapi-serializer');
@@ -94,7 +94,6 @@ const updateProfileInformationController = async (req, res) => {
     address,
     city,
     state,
-    country,
     // picture, // TODO: Waiting for AWS S3 implementation
     bio,
   } = req.body;
@@ -102,7 +101,7 @@ const updateProfileInformationController = async (req, res) => {
 
   try {
     const Users = new repositories.User(connection);
-    const user = await Users.getByEmail(email, false);
+    const user = await Users.getByEmailRaw(email, false);
     if (!user) throw new CommonError(UserNotFoundException);
 
     await Users.updateUserAttributes(user, {
@@ -113,8 +112,6 @@ const updateProfileInformationController = async (req, res) => {
       address,
       city,
       state,
-      country,
-      // picture, // TODO: Waiting for AWS S3 implementation
       bio,
     });
 

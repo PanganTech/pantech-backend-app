@@ -1,8 +1,8 @@
 const bcrypt = require('bcrypt');
 const connection = require('../../../db');
 const router = require('express').Router()
-const { logError } = require('../../../../utils/logger')
-const { errorMessages } = require('../../../../utils/constants');
+const { logError } = require('../../../utils/logger')
+const { errorMessages } = require('../../../utils/constants');
 const { repositories } = require('data-access-utility');
 const { helpers, configs, errors, CommonError } = require('backend-utility');
 const { Serializer } = require('jsonapi-serializer');
@@ -61,9 +61,18 @@ const serialize = (data) => {
       'city',
       'state',
       'bio',
+      'status',
       'createdAt',
       'updatedAt',
+      'user_wallet',
     ],
+    'user_wallet':{
+      attributes: [
+        'balance',
+        'createdAt',
+        'updatedAt',
+      ], 
+    },
     keyForAttribute: 'camelCase',
   });
 
@@ -80,19 +89,27 @@ const loginController = async (req, res) => {
 
   try {
     const Users = new repositories.User(connection);
-    const user = await Users.getByEmail(email, false);
+    const user = await Users.getByEmailRaw(email, false);
     const user_id = await Users.getId(user)
 
     if (!user) throw new CommonError(LoginNotApproved);
     const userPassword = await Users.getPassword(user);
 
+    const UserWallet = new repositories.UserWallet(connection);
+    const userWallet = await UserWallet.getUserWalletById(user_id, false);
+
+    if (isValid(userWallet) === false) {
+      await UserWallet.create(user_id);
+    }
+
     const userType = await Users.getType(user);
     const passwordMatched = bcrypt.compareSync(password, userPassword);
     if (!passwordMatched) throw new CommonError(LoginNotApproved);
-    if (userType !== BUYER) throw new CommonError(LoginNotApproved);
+    if (userType !== SELLER) throw new CommonError(LoginNotApproved);
 
     const token = getToken({ email: email.toLowerCase(), user_id });
-    const userData = await serialize(user);
+    const userdat = await Users.getByEmail(email, false)
+    const userData = await serialize(userdat);
     const customResponse = {
       user: userData.data,
       token: token
@@ -110,6 +127,6 @@ const loginController = async (req, res) => {
   res.send(response);
 }
 
-router.post('/login', validator, loginController)
+router.post('/login', loginController)
 
 module.exports = router

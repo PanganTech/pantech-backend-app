@@ -4,7 +4,6 @@ const bodyParser = require('body-parser')
 
 const routes = require('./routes');
 const { logError } = require('./utils/logger');
-const cron = require('./utils/cron/cron-job');
 
 // Server configuration
 const app = express()
@@ -17,6 +16,5 @@ app.use('/', (req, res) => {
     res.status(404).json({ statusCode: 404, body: { responseCode: "Route not found" } })
 })
 
-cron.updateCryptoTokenPrice();
 
 module.exports = app;

@@ -1,11 +1,11 @@
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
-const connection = require('../../../../db');
+const connection = require('../../../db');
 const { v4: uuidv4 } = require('uuid');
 const router = require('express').Router();
-const { logError } = require('../../../../utils/logger');
+const { logError } = require('../../../utils/logger');
 const { repositories } = require('data-access-utility');
-const { errorMessages } = require('../../../../utils/constants');
+const { errorMessages } = require('../../../utils/constants');
 const { configs, errors, helpers, CommonError } = require('backend-utility');
 const { Serializer } = require('jsonapi-serializer');
 const { check, validationResult } = require('express-validator');
@@ -28,30 +28,30 @@ const validator = [
 		.exists()
 		.trim()
 		.escape()
-		.withMessage(errorMessages.scholar.EMAIL_REQUIRED)
+		.withMessage(errorMessages.buyer.EMAIL_REQUIRED)
 		.bail()
 		.isEmail()
 		//.normalizeEmail()
-		.withMessage(errorMessages.scholar.EMAIL_FORMAT),
+		.withMessage(errorMessages.buyer.EMAIL_FORMAT),
 	check('firstName')
 		.exists()
-		.withMessage(errorMessages.scholar.FIRST_NAME_REQUIRED),
+		.withMessage(errorMessages.buyer.FIRST_NAME_REQUIRED),
 	check('password')
 		.exists()
-		.withMessage(errorMessages.scholar.PASSWORD_REQUIRED)
+		.withMessage(errorMessages.buyer.PASSWORD_REQUIRED)
 		.isLength({ min: 6 })
 		.matches(
 			/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d@$.!%*#?&]/,
 		) // 1 uppercase, 1 lowercase, 1 special character
-		.withMessage(errorMessages.scholar.PASSWORD_FORMAT),
+		.withMessage(errorMessages.buyer.PASSWORD_FORMAT),
 	check('confirmPassword')
 		.exists()
-		.withMessage(errorMessages.scholar.PASSWORD_REQUIRED)
+		.withMessage(errorMessages.buyer.PASSWORD_REQUIRED)
 		.isLength({ min: 6 })
 		.matches(
 			/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d@$.!%*#?&]/,
 		) // 1 uppercase, 1 lowercase, 1 special character
-		.withMessage(errorMessages.scholar.PASSWORD_FORMAT)
+		.withMessage(errorMessages.buyer.PASSWORD_FORMAT)
 	, (req, res, next) => {
 		let errorArray = []
 		const errors = validationResult(req);
@@ -69,7 +69,7 @@ const validator = [
 				}
             }
 			console.log(errors);
-			return res.status(400).json({ errors: a });
+			return res.status(400).json({ errors: errorArray });
 		}
 		next()
 	}]
@@ -128,7 +128,7 @@ const signupController = async (req, res) => {
 		}
 
 		const Users = new repositories.User(connection);
-		const user = await Users.getByEmail(email, false);
+		const user = await Users.getByEmailRaw(email, false);
 		if (user) throw new CommonError(EmailAlreadyExistException);
 
 		const type = BUYER;

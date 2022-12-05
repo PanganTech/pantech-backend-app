@@ -1,10 +1,9 @@
-const connection = require('../../db');
+const connection = require('../../../db');
 const router = require('express').Router()
-const { logError } = require('../../utils/logger')
+const { logError } = require('../../../utils/logger')
 const { repositories } = require('data-access-utility');
 const { helpers, errors, CommonError } = require('backend-utility');
 const { Serializer } = require('jsonapi-serializer');
-const { getUsernameType } = require('../../utils/functions');
 
 const { responses } = helpers;
 
@@ -27,20 +26,20 @@ const serialize = (data) => {
   const serializerSchema = ({
     id: 'id',
     attributes: [
-      'email',
-      'type',
-      'first_name',
-      'middle_name',
-      'last_name',
-      'phone',
-      'address',
-      'city',
-      'state',
-      'bio',
-      'status',
-      'createdAt',
-      'updatedAt',
+      'item_name',
+      'price',
+      'stock',
+      'user',
     ],
+    'user':{
+        attributes: [
+            'user_id',
+            'type',
+            'first_name',
+            'city',
+            'state'
+        ]
+    },
     keyForAttribute: 'camelCase',
   });
 
@@ -52,18 +51,24 @@ const serialize = (data) => {
  */
 const infoController = async(req, res) => {
     let response
-    const { email } = req.auth
+    const { user_id } = req.auth
+    const { itemId, itemName, price, stock, category} = req.body
 
     try {
-        const Users = new repositories.User(connection);
-        const user = await Users.getByEmail(email, false);
-        if (!user) throw new CommonError(UserNotFoundException);
-        const userData = await serialize(user);
+        const Items = new repositories.Item(connection);
+        const item = await Items.getItemByIdRaw(itemId)
+        const update = await Items.updateItemAttributes(item, {
+            item_name: itemName, 
+            price, 
+            stock, 
+            item_category_id: category
+        });
+        const itemData = await serialize(update);
 
     const customResponse = {
-      user: userData.data,
+      item: itemData.data,
     }
-    response = successResponse('User Info', customResponse);
+    response = successResponse('Available Item', customResponse);
   } catch (err) {
     logError(err);
     response = errorResponse(err);
@@ -72,6 +77,6 @@ const infoController = async(req, res) => {
   res.send(response);
 }
 
-router.get('/info', validator, infoController)
+router.put('/update', validator, infoController)
 
 module.exports = router
