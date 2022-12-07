@@ -1,0 +1,1438 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Pantech",
+    "contact": {},
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://b945-125-164-20-240.ap.ngrok.io/api/v1",
+      "variables": {}
+    }
+  ],
+  "paths": {
+    "/buyer/auth/signup": {
+      "post": {
+        "tags": [
+          "Buyer Auth"
+        ],
+        "summary": "Sign Up",
+        "operationId": "SignUp",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "email",
+                  "password",
+                  "confirmPassword",
+                  "firstName"
+                ],
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "nathanelmario@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "Mario565."
+                  },
+                  "confirmPassword": {
+                    "type": "string",
+                    "example": "Mario565."
+                  },
+                  "firstName": {
+                    "type": "string",
+                    "example": "Mario"
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/buyer/auth/login": {
+      "post": {
+        "tags": [
+          "Buyer Auth"
+        ],
+        "summary": "Login",
+        "operationId": "Login",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "nathanelmario@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "Mario565."
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/buyer/user/info": {
+      "get": {
+        "tags": [
+          "Buyer User"
+        ],
+        "summary": "User Info",
+        "operationId": "UserInfo",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "Buyer User"
+        ],
+        "summary": "Update Profile",
+        "operationId": "UpdateProfile",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/buyer/user/wallet-info": {
+      "get": {
+        "tags": [
+          "Buyer User"
+        ],
+        "summary": "Get Wallet",
+        "operationId": "GetWallet",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/buyer/user/top-up": {
+      "put": {
+        "tags": [
+          "Buyer User"
+        ],
+        "summary": "Top Up",
+        "operationId": "TopUp",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "nominal"
+                ],
+                "type": "object",
+                "properties": {
+                  "nominal": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 50000
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/buyer/user/update-location": {
+      "put": {
+        "tags": [
+          "Buyer User"
+        ],
+        "summary": "Update Location",
+        "operationId": "UpdateLocation",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "longitude",
+                  "latitude"
+                ],
+                "type": "object",
+                "properties": {
+                  "longitude": {
+                    "type": "number",
+                    "format": "double",
+                    "example": -6.8991215
+                  },
+                  "latitude": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 107.5623504
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/buyer/item/available-item": {
+      "get": {
+        "tags": [
+          "Buyer Item"
+        ],
+        "summary": "Get Item",
+        "operationId": "GetItem",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/buyer/item/chart": {
+      "get": {
+        "tags": [
+          "Buyer Item"
+        ],
+        "summary": "Get Chart",
+        "operationId": "GetChart",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "Buyer Item"
+        ],
+        "summary": "Update Chart",
+        "operationId": "UpdateChart",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "itemId",
+                  "jumlah"
+                ],
+                "type": "object",
+                "properties": {
+                  "itemId": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 1
+                  },
+                  "jumlah": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 5
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/buyer/item/check-out": {
+      "post": {
+        "tags": [
+          "Buyer Item"
+        ],
+        "summary": "Check Out Barang",
+        "operationId": "CheckOutBarang",
+        "parameters": [],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CheckOutBarangRequest"
+                  },
+                  {
+                    "example": {
+                      "items": [
+                        {
+                          "item_id": 1,
+                          "jumlah": 3,
+                          "total": 150000
+                        },
+                        {
+                          "item_id": 2,
+                          "jumlah": 2,
+                          "total": 15000
+                        },
+                        {
+                          "item_id": 3,
+                          "jumlah": 1,
+                          "total": 5000
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "example": {
+                "items": [
+                  {
+                    "item_id": 1,
+                    "jumlah": 3,
+                    "total": 150000
+                  },
+                  {
+                    "item_id": 2,
+                    "jumlah": 2,
+                    "total": 15000
+                  },
+                  {
+                    "item_id": 3,
+                    "jumlah": 1,
+                    "total": 5000
+                  }
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/buyer/item/payment": {
+      "put": {
+        "tags": [
+          "Buyer Item"
+        ],
+        "summary": "Payment",
+        "operationId": "Payment",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "transactionId",
+                  "method"
+                ],
+                "type": "object",
+                "properties": {
+                  "transactionId": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 1
+                  },
+                  "method": {
+                    "type": "string",
+                    "example": "wallet"
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/buyer/item/get-transaction": {
+      "get": {
+        "tags": [
+          "Buyer Item"
+        ],
+        "summary": "Get Transaction",
+        "operationId": "GetTransaction",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/seller/auth/signup": {
+      "post": {
+        "tags": [
+          "Seller Auth"
+        ],
+        "summary": "Sign Up",
+        "operationId": "PostSignUp",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "email",
+                  "password",
+                  "confirmPassword",
+                  "firstName"
+                ],
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "marionatha@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "Mario565."
+                  },
+                  "confirmPassword": {
+                    "type": "string",
+                    "example": "Mario565."
+                  },
+                  "firstName": {
+                    "type": "string",
+                    "example": "Toko Saya"
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/seller/auth/login": {
+      "post": {
+        "tags": [
+          "Seller Auth"
+        ],
+        "summary": "Login",
+        "operationId": "PostLogin",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "marionatha@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "Mario565."
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/seller/item/create": {
+      "post": {
+        "tags": [
+          "Seller Item"
+        ],
+        "summary": "Create Item",
+        "operationId": "CreateItem",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "itemName",
+                  "price",
+                  "stock",
+                  "category"
+                ],
+                "type": "object",
+                "properties": {
+                  "itemName": {
+                    "type": "string",
+                    "example": "Pala"
+                  },
+                  "price": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 2500
+                  },
+                  "stock": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 50
+                  },
+                  "category": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 3
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/seller/item/update": {
+      "put": {
+        "tags": [
+          "Seller Item"
+        ],
+        "summary": "Update Item",
+        "operationId": "UpdateItem",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "itemId",
+                  "itemName",
+                  "price"
+                ],
+                "type": "object",
+                "properties": {
+                  "itemId": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 4
+                  },
+                  "itemName": {
+                    "type": "string",
+                    "example": "Pala"
+                  },
+                  "price": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 1500
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/seller/item/get-item": {
+      "get": {
+        "tags": [
+          "Seller Item"
+        ],
+        "summary": "get item",
+        "operationId": "getitem",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/seller/item/confirm": {
+      "put": {
+        "tags": [
+          "Seller Item"
+        ],
+        "summary": "Confirm",
+        "operationId": "Confirm",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "transactionId"
+                ],
+                "type": "object",
+                "properties": {
+                  "transactionId": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 6
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/seller/item/get-transaction": {
+      "get": {
+        "tags": [
+          "Seller Item"
+        ],
+        "summary": "Get Transaction",
+        "operationId": "GetTransaction1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/seller/user/info": {
+      "get": {
+        "tags": [
+          "Seller User"
+        ],
+        "summary": "Info",
+        "operationId": "Info",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/seller/user/update-profile": {
+      "put": {
+        "tags": [
+          "Seller User"
+        ],
+        "summary": "Update profile",
+        "operationId": "Updateprofile",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "bio"
+                ],
+                "type": "object",
+                "properties": {
+                  "bio": {
+                    "type": "string",
+                    "example": "Jual Makanan"
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/seller/user/wallet-info": {
+      "get": {
+        "tags": [
+          "Seller User"
+        ],
+        "summary": "Get Wallet",
+        "operationId": "GetWallet1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/seller/user/update-location": {
+      "put": {
+        "tags": [
+          "Seller User"
+        ],
+        "summary": "Update Location Copy",
+        "operationId": "UpdateLocationCopy",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "longitude",
+                  "latitude"
+                ],
+                "type": "object",
+                "properties": {
+                  "longitude": {
+                    "type": "number",
+                    "format": "double",
+                    "example": -6.8991215
+                  },
+                  "latitude": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 107.5623504
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/driver/auth/login": {
+      "post": {
+        "tags": [
+          "Driver Auth"
+        ],
+        "summary": "Login",
+        "operationId": "PostLogin1",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "namamar@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "Mario565."
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/driver/user/info": {
+      "get": {
+        "tags": [
+          "Driver User"
+        ],
+        "summary": "Info",
+        "operationId": "GetInfo",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/driver/user/wallet-info": {
+      "get": {
+        "tags": [
+          "Driver User"
+        ],
+        "summary": "Get Wallet",
+        "operationId": "GetWallet2",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/driver/user/update-profile": {
+      "put": {
+        "tags": [
+          "Driver User"
+        ],
+        "summary": "Update profile",
+        "operationId": "PutUpdateprofile",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "bio"
+                ],
+                "type": "object",
+                "properties": {
+                  "bio": {
+                    "type": "string",
+                    "example": "Antar Makanan"
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/driver/user/update-location": {
+      "put": {
+        "tags": [
+          "Driver User"
+        ],
+        "summary": "Update Location Copy 2",
+        "operationId": "UpdateLocationCopy2",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "longitude",
+                  "latitude"
+                ],
+                "type": "object",
+                "properties": {
+                  "longitude": {
+                    "type": "number",
+                    "format": "double",
+                    "example": -6.8991215
+                  },
+                  "latitude": {
+                    "type": "number",
+                    "format": "double",
+                    "example": 107.5623504
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/driver/item/confirm-pick-up": {
+      "put": {
+        "tags": [
+          "Driver Item"
+        ],
+        "summary": "Confirm Pick Up",
+        "operationId": "ConfirmPickUp",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "transactionId"
+                ],
+                "type": "object",
+                "properties": {
+                  "transactionId": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 2
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/driver/item/confirm-otw": {
+      "put": {
+        "tags": [
+          "Driver Item"
+        ],
+        "summary": "Confirm OTW",
+        "operationId": "ConfirmOTW",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "transactionId"
+                ],
+                "type": "object",
+                "properties": {
+                  "transactionId": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 2
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/driver/item/confirm-delivered": {
+      "put": {
+        "tags": [
+          "Driver Item"
+        ],
+        "summary": "Confirm delivered",
+        "operationId": "Confirmdelivered",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "transactionId"
+                ],
+                "type": "object",
+                "properties": {
+                  "transactionId": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 2
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/admin/auth/login": {
+      "post": {
+        "tags": [
+          "Admin Auth"
+        ],
+        "summary": "Login",
+        "operationId": "PostLogin2",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "admin@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "Mario565."
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/admin/auth/signup": {
+      "post": {
+        "tags": [
+          "Admin Auth"
+        ],
+        "summary": "Sign Up",
+        "operationId": "PostSignUp1",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "email",
+                  "password",
+                  "confirmPassword",
+                  "firstName"
+                ],
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "admin@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "Mario565."
+                  },
+                  "confirmPassword": {
+                    "type": "string",
+                    "example": "Mario565."
+                  },
+                  "firstName": {
+                    "type": "string",
+                    "example": "Toko Saya"
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/admin/user/all-user": {
+      "get": {
+        "tags": [
+          "Admin User"
+        ],
+        "summary": "Get All User",
+        "operationId": "GetAllUser",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/admin/user/delete-user": {
+      "post": {
+        "tags": [
+          "Admin User"
+        ],
+        "summary": "Delete User",
+        "operationId": "DeleteUser",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "encoding": {},
+              "schema": {
+                "required": [
+                  "userId"
+                ],
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 1
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/admin/item/delete-item": {
+      "delete": {
+        "tags": [
+          "Admin Item"
+        ],
+        "summary": "Delete Item",
+        "operationId": "DeleteItem",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/admin/item/delete-transaction": {
+      "delete": {
+        "tags": [
+          "Admin Item"
+        ],
+        "summary": "Delete Transaction",
+        "operationId": "DeleteTransaction",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/admin/item/all-item": {
+      "get": {
+        "tags": [
+          "Admin Item"
+        ],
+        "summary": "Get All Item",
+        "operationId": "GetAllItem",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/admin/item/get-transaction": {
+      "get": {
+        "tags": [
+          "Admin Item"
+        ],
+        "summary": "Get All Transaction",
+        "operationId": "GetAllTransaction",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CheckOutBarangRequest": {
+        "title": "CheckOutBarangRequest",
+        "required": [
+          "items"
+        ],
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Item"
+            },
+            "description": ""
+          }
+        },
+        "example": {
+          "items": [
+            {
+              "item_id": 1,
+              "jumlah": 3,
+              "total": 150000
+            },
+            {
+              "item_id": 2,
+              "jumlah": 2,
+              "total": 15000
+            },
+            {
+              "item_id": 3,
+              "jumlah": 1,
+              "total": 5000
+            }
+          ]
+        }
+      },
+      "Item": {
+        "title": "Item",
+        "required": [
+          "item_id",
+          "jumlah",
+          "total"
+        ],
+        "type": "object",
+        "properties": {
+          "item_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "jumlah": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "total": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "example": {
+          "item_id": 1,
+          "jumlah": 3,
+          "total": 150000
+        }
+      }
+    },
+    "securitySchemes": {
+      "httpBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "httpBearer": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Buyer Auth"
+    },
+    {
+      "name": "Buyer User"
+    },
+    {
+      "name": "Buyer Item"
+    },
+    {
+      "name": "Seller Auth"
+    },
+    {
+      "name": "Seller Item"
+    },
+    {
+      "name": "Seller User"
+    },
+    {
+      "name": "Driver Auth"
+    },
+    {
+      "name": "Driver User"
+    },
+    {
+      "name": "Driver Item"
+    },
+    {
+      "name": "Admin Auth"
+    },
+    {
+      "name": "Admin User"
+    },
+    {
+      "name": "Admin Item"
+    }
+  ]
+}

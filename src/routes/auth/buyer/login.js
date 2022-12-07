@@ -105,9 +105,18 @@ const loginController = async (req, res) => {
     const Chart = new repositories.Chart(connection);
     const chart = await Chart.getChart(user_id, false);
 
+    const UserLocation = new repositories.UserLocation(connection);
+    const userLocation = await UserLocation.getUserLocationById(user_id, false);
+
+    if(isValid(userLocation) === false) {
+      await UserLocation.create(user_id)
+    }
+
     if (isValid(chart) === false){
         await Chart.create(user_id);
     }
+
+    
 
     const userType = await Users.getType(user);
     const passwordMatched = bcrypt.compareSync(password, userPassword);

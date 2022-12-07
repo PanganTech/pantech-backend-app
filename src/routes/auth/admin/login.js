@@ -14,7 +14,7 @@ const { responses, jwt } = helpers;
 const { UserType } = configs.enums;
 
 const { getToken } = jwt;
-const { SELLER, BUYER, DRIVER } = UserType;
+const { SELLER, BUYER, DRIVER, ADMIN } = UserType;
 
 const { UserNotApproved, LoginNotApproved, InvalidActionSpecified } = errors.codes;
 const { error: errorResponse, success: successResponse } = responses;
@@ -95,24 +95,10 @@ const loginController = async (req, res) => {
     if (!user) throw new CommonError(LoginNotApproved);
     const userPassword = await Users.getPassword(user);
 
-    const UserWallet = new repositories.UserWallet(connection);
-    const userWallet = await UserWallet.getUserWalletById(user_id, false);
-
-    if (isValid(userWallet) === false) {
-      await UserWallet.create(user_id);
-    }
-
-    const UserLocation = new repositories.UserLocation(connection);
-    const userLocation = await UserLocation.getUserLocationById(user_id, false);
-
-    if(isValid(userLocation) === false) {
-      await UserLocation.create(user_id)
-    }
-
     const userType = await Users.getType(user);
     const passwordMatched = bcrypt.compareSync(password, userPassword);
     if (!passwordMatched) throw new CommonError(LoginNotApproved);
-    if (userType !== SELLER) throw new CommonError(LoginNotApproved);
+    if (userType !== ADMIN) throw new CommonError(LoginNotApproved);
 
     const token = getToken({ email: email.toLowerCase(), user_id });
     const userdat = await Users.getByEmail(email, false)

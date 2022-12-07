@@ -4,6 +4,7 @@ const { logError } = require('../../../utils/logger')
 const { repositories } = require('data-access-utility');
 const { helpers, errors, CommonError, configs } = require('backend-utility');
 const { Serializer } = require('jsonapi-serializer');
+const { User } = require('discord.js');
 
 const { responses } = helpers;
 const { enums } = configs;
@@ -44,6 +45,36 @@ const serialize = (data) => {
   return new Serializer('Transaction', serializerSchema).serialize(data);
 }
 
+const serializeUserLocation = (data) => {
+  const serializerSchema = ({
+    id: 'id',
+    attributes: [
+      'longitude',
+      'latitude',
+      'user',
+    ],
+    user: {
+      attributes: [
+        'email',
+        'type',
+        'first_name',
+        'middle_name',
+        'last_name',
+        'phone',
+        'address',
+        'city',
+        'state',
+        'bio',
+        'status',
+        'createdAt',
+        'updatedAt',
+      ],
+    },
+    keyForAttribute: 'camelCase'
+  })
+  return new Serializer('Driver Location', serializerSchema).serialize(data);
+}
+
 /**
  * Controller used to show user info after login. 
  */
@@ -55,12 +86,25 @@ const infoController = async(req, res) => {
     try {
         const ItemTransactions = new repositories.ItemTransaction(connection);
         const transaction = await ItemTransactions.getTransactionById(transactionId, false);
+        const buyerId = await ItemTransactions.getBuyerId(transaction)
 
         const updateStatus = await ItemTransactions.updateTransactionStatus(transaction, SEARCHING)
+
+        const UserLocation = new repositories.UserLocation(connection)
+        const driverLocation = await UserLocation.getDriverLocation(false)
+        const buyerLocation = await UserLocation.getUserLocationById(buyerId, false)
+        const sellerLocation = await UserLocation.getUserLocationById(user_id, false)
+
         const updateData = await serialize(updateStatus)
+        const driverLocationData = await serializeUserLocation(driverLocation)
+        const buyerLocationData = await serializeUserLocation(buyerLocation)
+        const selletLocationData = await serializeUserLocation(sellerLocation)
 
         const customResponse = {
             transaction: updateData.data,
+            driverLocation: driverLocationData.data,
+            buyerLocation: buyerLocationData.data,
+            sellerLocation: selletLocationData.data,
         }
         response = successResponse('Transaction', customResponse);
     } catch (err) {
